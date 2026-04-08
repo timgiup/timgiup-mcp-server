@@ -1,5 +1,5 @@
 [project]
-name = "lost-item-search-api-vietnam"
+name = "timgiup-mcp"
 version = "0.1.0"
 description = "MCP server for searching lost items, lost documents, and lost pets in Vietnam via timgiup.com"
 readme = "README.md"
@@ -22,11 +22,11 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://timgiup.com"
-Repository = "https://github.com/timgiup/lost-item-search-api-vietnam"
-Issues = "https://github.com/timgiup/lost-item-search-api-vietnam/issues"
+Repository = "https://github.com/timgiup/timgiup-mcp-server"
+Issues = "https://github.com/timgiup/timgiup-mcp-server/issues"
 
 [project.scripts]
-lost-item-search-mcp = "mcp_server.server:main"
+timgiup-mcp = "mcp_server.server:main"
 
 [build-system]
 requires = ["hatchling"]

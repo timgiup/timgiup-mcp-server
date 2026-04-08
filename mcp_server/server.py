@@ -19,7 +19,7 @@ DATA_DIR = Path(__file__).parent / "data"
 # Khởi tạo server + client
 _base_url = os.environ.get("TIMGIUP_API_BASE_URL", "https://timgiup.com")
 _client = TimgiupClient(base_url=_base_url)
-server: Server = Server("lost-item-search-vietnam")
+server: Server = Server("timgiup-mcp")
 
 
 def _load_json(filename: str) -> Any:

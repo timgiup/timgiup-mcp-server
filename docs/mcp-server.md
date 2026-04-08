@@ -22,23 +22,23 @@ Server giao tiếp qua **stdio** theo chuẩn MCP 1.0+.
 ### Phương án A: chạy trực tiếp với `uvx` (khuyến nghị)
 Không cần cài đặt local. `uvx` tự động tải và chạy:
 ```bash
-uvx --from git+https://github.com/timgiup/lost-item-search-api-vietnam lost-item-search-mcp
+uvx --from git+https://github.com/timgiup/timgiup-mcp-server timgiup-mcp
 ```
 
 ### Phương án B: clone & cài đặt editable
 ```bash
-git clone https://github.com/timgiup/lost-item-search-api-vietnam.git
-cd lost-item-search-api-vietnam
+git clone https://github.com/timgiup/timgiup-mcp-server.git
+cd timgiup-mcp-server
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -e .
-lost-item-search-mcp
+timgiup-mcp
 ```
 
 ### Phương án C: pip install từ git
 ```bash
-pip install git+https://github.com/timgiup/lost-item-search-api-vietnam.git
-lost-item-search-mcp
+pip install git+https://github.com/timgiup/timgiup-mcp-server.git
+timgiup-mcp
 ```
 
 ## Biến môi trường
@@ -54,12 +54,12 @@ File config: `~/Library/Application Support/Claude/claude_desktop_config.json` (
 ```json
 {
   "mcpServers": {
-    "lost-item-search-vn": {
+    "timgiup": {
       "command": "uvx",
       "args": [
         "--from",
-        "git+https://github.com/timgiup/lost-item-search-api-vietnam",
-        "lost-item-search-mcp"
+        "git+https://github.com/timgiup/timgiup-mcp-server",
+        "timgiup-mcp"
       ],
       "env": {
         "TIMGIUP_API_BASE_URL": "https://timgiup.com"
@@ -93,7 +93,7 @@ for r in result['results'][:3]:
 ### Test MCP server qua stdio
 Server sẽ chờ JSON-RPC message qua stdin. Test bằng MCP Inspector:
 ```bash
-npx @modelcontextprotocol/inspector lost-item-search-mcp
+npx @modelcontextprotocol/inspector timgiup-mcp
 ```
 
 ## Ví dụ prompt cho AI Agent

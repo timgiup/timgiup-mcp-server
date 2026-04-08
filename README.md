@@ -17,15 +17,15 @@
 
 ### Cách 1: dùng `uvx` (khuyến nghị)
 ```bash
-uvx --from git+https://github.com/timgiup/lost-item-search-api-vietnam lost-item-search-mcp
+uvx --from git+https://github.com/timgiup/timgiup-mcp-server timgiup-mcp
 ```
 
 ### Cách 2: clone & cài local
 ```bash
-git clone https://github.com/timgiup/lost-item-search-api-vietnam.git
-cd lost-item-search-api-vietnam
+git clone https://github.com/timgiup/timgiup-mcp-server.git
+cd timgiup-mcp-server
 pip install -e .
-lost-item-search-mcp
+timgiup-mcp
 ```
 
 ## Cấu hình Claude Desktop
@@ -35,12 +35,12 @@ Mở `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) h
 ```json
 {
   "mcpServers": {
-    "lost-item-search-vn": {
+    "timgiup": {
       "command": "uvx",
       "args": [
         "--from",
-        "git+https://github.com/timgiup/lost-item-search-api-vietnam",
-        "lost-item-search-mcp"
+        "git+https://github.com/timgiup/timgiup-mcp-server",
+        "timgiup-mcp"
       ],
       "env": {
         "TIMGIUP_API_BASE_URL": "https://timgiup.com"
@@ -77,7 +77,7 @@ Xem thêm: [`examples/claude-desktop-config.json`](examples/claude-desktop-confi
 
 ## Đóng góp
 
-PRs welcome! Nếu phát hiện bug hoặc muốn đề xuất tính năng, vui lòng mở [issue](https://github.com/timgiup/lost-item-search-api-vietnam/issues).
+PRs welcome! Nếu phát hiện bug hoặc muốn đề xuất tính năng, vui lòng mở [issue](https://github.com/timgiup/timgiup-mcp-server/issues).
 
 ## License
 
