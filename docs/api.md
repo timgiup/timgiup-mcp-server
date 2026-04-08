@@ -32,6 +32,7 @@ GET https://timgiup.com/api/search
   "results": [
     {
       "title": "Mất CCCD tại Quận 1",
+      "status": "active",
       "description": "Tôi bị mất CCCD vào sáng nay khi đi chợ Bến Thành...",
       "category": "Đồ thất lạc",
       "subcategory": "Tìm giấy tờ tùy thân",
@@ -55,6 +56,7 @@ GET https://timgiup.com/api/search
 | `count`                 | int                  | Số kết quả trả về trong response (≤ 20) |
 | `query`                 | string               | Từ khóa đã được trim                    |
 | `results[].title`       | string               | Tiêu đề bài đăng                        |
+| `results[].status`      | string               | Trạng thái: `active` (đang tìm), `resolved` (đã tìm thấy), `expired` (hết hạn — vẫn hiển thị để tra cứu) |
 | `results[].description` | string               | Mô tả chi tiết                          |
 | `results[].category`    | string               | Tên danh mục cha (VN)                   |
 | `results[].subcategory` | string?              | Tên danh mục con (có thể null)          |
@@ -89,6 +91,6 @@ curl 'https://timgiup.com/api/search?q=cho&category=thu-cung-that-lac&province=0
 
 ## Ghi chú
 
-- Chỉ trả về bài có status `active` hoặc `resolved` (đã tìm thấy — vẫn hiển thị để tạo lòng tin).
+- Trả về bài có status `active`, `resolved` (đã tìm thấy) hoặc `expired` (hết hạn — vẫn có giá trị tra cứu lịch sử).
 - Sắp xếp: bài ghim trước, sau đó theo thời gian tạo mới nhất.
 - Tìm kiếm normalize tiếng Việt (không phân biệt dấu) — `"vi"` sẽ match `"ví"`.
