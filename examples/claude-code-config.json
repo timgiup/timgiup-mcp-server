@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "timgiup": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/timgiup/timgiup-mcp-server",
+        "timgiup-mcp"
+      ]
+    }
+  }
+}
