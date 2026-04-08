@@ -47,3 +47,24 @@ class TimgiupClient:
             resp = await client.get(f"{self.base_url}/api/search", params=params)
             resp.raise_for_status()
             return resp.json()
+
+    async def list_categories(self) -> list[dict[str, Any]]:
+        """Gọi GET /api/categories — danh mục cha (slug + name)."""
+        async with httpx.AsyncClient(timeout=self.timeout) as client:
+            resp = await client.get(f"{self.base_url}/api/categories")
+            resp.raise_for_status()
+            return resp.json()
+
+    async def list_provinces(self) -> list[dict[str, Any]]:
+        """Gọi GET /api/provinces — 34 tỉnh/thành post-2025 + aliases."""
+        async with httpx.AsyncClient(timeout=self.timeout) as client:
+            resp = await client.get(f"{self.base_url}/api/provinces")
+            resp.raise_for_status()
+            return resp.json()
+
+    async def fetch_text(self, path: str) -> str:
+        """Fetch raw text/JSON từ một path (dùng cho openapi.json, llms.txt, RSS)."""
+        async with httpx.AsyncClient(timeout=self.timeout) as client:
+            resp = await client.get(f"{self.base_url}{path}")
+            resp.raise_for_status()
+            return resp.text

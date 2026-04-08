@@ -9,9 +9,26 @@
 ## Tính năng
 
 - **Tìm kiếm bài đăng** theo từ khóa (tiếng Việt có/không dấu), lọc theo danh mục và tỉnh/thành
-- **Reference data**: 6 danh mục cha + 34 tỉnh/thành Việt Nam (sau sáp nhập 2025) kèm aliases tên cũ
-- **3 MCP tools** sẵn sàng cho AI Agent: `search_lost_items`, `list_categories`, `list_provinces`
+- **Reference data live từ API**: 6 danh mục cha (`/api/categories`) + 34 tỉnh/thành Việt Nam sau sáp nhập 2025 (`/api/provinces`) kèm aliases tên cũ
+- **3 MCP tools**: `search_lost_items`, `list_categories`, `list_provinces`
+- **8 MCP resources** expose tài nguyên public (đọc trực tiếp, không cần tool call):
+  - `https://timgiup.com/openapi.json` — OpenAPI 3.1 spec
+  - `https://timgiup.com/llms.txt` — AI/LLM discovery guide (chuẩn llmstxt.org)
+  - `https://timgiup.com/rss/tat-ca.rss` — Feed tất cả bài
+  - `https://timgiup.com/rss/do-that-lac.rss` — Feed đồ thất lạc
+  - `https://timgiup.com/rss/thu-cung-that-lac.rss` — Feed thú cưng thất lạc
+  - `https://timgiup.com/rss/nguoi-than-that-lac.rss` — Feed người thân thất lạc
+  - `https://timgiup.com/rss/do-nhat-duoc.rss` — Feed đồ nhặt được
+  - `https://timgiup.com/sitemap.xml` — Sitemap index
 - Trả về tối đa 20 kết quả mỗi lần với đầy đủ: title, status, mô tả, danh mục, địa chỉ, ngày xảy ra, ảnh, link bài viết gốc
+
+## API Endpoints sử dụng
+
+MCP server gọi các REST API công khai sau (rate limit 30 req/phút/IP):
+- `GET /api/search?q={keyword}&category={slug}&province={code}` — tìm kiếm
+- `GET /api/categories` — danh mục cha
+- `GET /api/provinces` — tỉnh/thành + aliases
+- `GET /openapi.json`, `GET /llms.txt`, `GET /rss/{slug}.rss`, `GET /sitemap.xml` — exposed làm MCP resources
 
 ## Yêu cầu
 
