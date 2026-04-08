@@ -10,11 +10,11 @@ GET https://timgiup.com/api/search
 
 ## Tham số
 
-| Tên | Bắt buộc | Kiểu | Mô tả |
-|------|----------|------|------|
-| `q` | ✅ Có | string | Từ khóa tìm kiếm. Hỗ trợ tiếng Việt có dấu. Không được rỗng. |
-| `category` | ❌ Không | string | Slug danh mục cha. Xem [`categories.md`](categories.md). |
-| `province` | ❌ Không | string | Mã tỉnh/thành (2 chữ số). Xem [`provinces.md`](provinces.md). |
+| Tên        | Bắt buộc | Kiểu   | Mô tả                                                                       |
+| ---------- | -------- | ------ | --------------------------------------------------------------------------- |
+| `q`        | ✅ Có    | string | Từ khóa tìm kiếm. Hỗ trợ tiếng Việt có dấu hoặc không dấu. Không được rỗng. |
+| `category` | ❌ Không | string | Slug danh mục cha. Xem [`categories.md`](categories.md).                    |
+| `province` | ❌ Không | string | Mã tỉnh/thành (2 chữ số). Xem [`provinces.md`](provinces.md).               |
 
 ## Rate Limit
 
@@ -23,6 +23,7 @@ GET https://timgiup.com/api/search
 ## Response Schema
 
 ### 200 OK
+
 ```json
 {
   "total": 42,
@@ -34,15 +35,13 @@ GET https://timgiup.com/api/search
       "description": "Tôi bị mất CCCD vào sáng nay khi đi chợ Bến Thành...",
       "category": "Đồ thất lạc",
       "subcategory": "Tìm giấy tờ tùy thân",
-      "created_at": "2026-04-01T10:00:00Z",
+      "created_at": "2026-04-01T17:00:00+07:00",
       "date_event": "2026-03-30",
       "province": "Thành phố Hồ Chí Minh",
       "ward": "Phường Bến Nghé",
       "address": "123 Nguyễn Huệ",
       "source_url": "https://timgiup.com/do-that-lac/mat-cccd-tai-quan-1",
-      "images": [
-        "https://timgiup.com/uploads/posts/abc123.jpg"
-      ]
+      "images": ["https://timgiup.com/uploads/posts/abc123.jpg"]
     }
   ]
 }
@@ -50,30 +49,30 @@ GET https://timgiup.com/api/search
 
 ### Field Reference
 
-| Field | Kiểu | Mô tả |
-|-------|------|------|
-| `total` | int | Tổng số kết quả khớp (toàn bộ DB) |
-| `count` | int | Số kết quả trả về trong response (≤ 20) |
-| `query` | string | Từ khóa đã được trim |
-| `results[].title` | string | Tiêu đề bài đăng |
-| `results[].description` | string | Mô tả chi tiết |
-| `results[].category` | string | Tên danh mục cha (VN) |
-| `results[].subcategory` | string? | Tên danh mục con (có thể null) |
-| `results[].created_at` | string (ISO 8601) | Thời gian đăng bài (UTC) |
-| `results[].date_event` | string? (YYYY-MM-DD) | Ngày xảy ra sự việc |
-| `results[].province` | string? | Tên tỉnh/thành |
-| `results[].ward` | string? | Tên phường/xã |
-| `results[].address` | string? | Địa chỉ chi tiết |
-| `results[].source_url` | string | URL bài viết gốc trên timgiup.com |
-| `results[].images` | string[]? | Mảng URL ảnh tuyệt đối (nếu có) |
+| Field                   | Kiểu                 | Mô tả                                   |
+| ----------------------- | -------------------- | --------------------------------------- |
+| `total`                 | int                  | Tổng số kết quả khớp (toàn bộ DB)       |
+| `count`                 | int                  | Số kết quả trả về trong response (≤ 20) |
+| `query`                 | string               | Từ khóa đã được trim                    |
+| `results[].title`       | string               | Tiêu đề bài đăng                        |
+| `results[].description` | string               | Mô tả chi tiết                          |
+| `results[].category`    | string               | Tên danh mục cha (VN)                   |
+| `results[].subcategory` | string?              | Tên danh mục con (có thể null)          |
+| `results[].created_at`  | string (ISO 8601)    | Thời gian đăng bài (múi giờ Việt Nam +07:00) |
+| `results[].date_event`  | string? (YYYY-MM-DD) | Ngày xảy ra sự việc                     |
+| `results[].province`    | string?              | Tên tỉnh/thành                          |
+| `results[].ward`        | string?              | Tên phường/xã                           |
+| `results[].address`     | string?              | Địa chỉ chi tiết                        |
+| `results[].source_url`  | string               | URL bài viết gốc trên timgiup.com       |
+| `results[].images`      | string[]?            | Mảng URL ảnh tuyệt đối (nếu có)         |
 
 ### Errors
 
-| HTTP | Body | Khi nào |
-|------|------|---------|
-| 400 | `{"error":"missing_query","message":"..."}` | `q` rỗng hoặc thiếu |
-| 429 | (rate limit) | Vượt 30 req/phút |
-| 500 | `{"error":"internal_error"}` | Lỗi server |
+| HTTP | Body                                        | Khi nào             |
+| ---- | ------------------------------------------- | ------------------- |
+| 400  | `{"error":"missing_query","message":"..."}` | `q` rỗng hoặc thiếu |
+| 429  | (rate limit)                                | Vượt 30 req/phút    |
+| 500  | `{"error":"internal_error"}`                | Lỗi server          |
 
 ## Ví dụ cURL
 
