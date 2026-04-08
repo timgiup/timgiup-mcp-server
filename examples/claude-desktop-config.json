@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "lost-item-search-vn": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/timgiup/lost-item-search-api-vietnam",
+        "lost-item-search-mcp"
+      ],
+      "env": {
+        "TIMGIUP_API_BASE_URL": "https://timgiup.com"
+      }
+    }
+  }
+}
