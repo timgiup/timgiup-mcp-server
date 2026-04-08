@@ -82,7 +82,10 @@ async def list_tools() -> list[Tool]:
             name="list_provinces",
             description=(
                 "Lấy danh sách 34 tỉnh/thành Việt Nam (sau sáp nhập 2025) "
-                "với mã code và tên. Dùng để chọn 'province' khi gọi search_lost_items."
+                "với mã code, tên hiện tại và 'aliases' (tên cũ trước sáp nhập). "
+                "Dùng để chọn 'province' khi gọi search_lost_items. "
+                "Khi user nhắc tỉnh cũ (vd 'Bình Dương', 'Kiên Giang'), tìm code "
+                "mà aliases chứa tên đó và dùng code mới."
             ),
             inputSchema={"type": "object", "properties": {}},
         ),
