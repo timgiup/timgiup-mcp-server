@@ -61,7 +61,8 @@ Agent sẽ tự gọi tool `search_lost_items` của MCP server.
 
 ## Lưu ý
 
-- **`uvx` phải có sẵn** trong PATH. Cài: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- **`uvx` phải có sẵn**. Cài: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- **Một số MCP client (Claude Code, Claude Desktop) không load PATH của user shell** → phải dùng **absolute path** trong `command`, vd `/home/<user>/.local/bin/uvx` (Linux/macOS) hoặc `C:\Users\<user>\.local\bin\uvx.exe` (Windows). Tìm path bằng `which uvx`.
 - Lần đầu chạy `uvx` sẽ tải code từ GitHub (~2-5s)
 - Không cần biến môi trường — domain `https://timgiup.com` đã hardcoded
 
