@@ -41,10 +41,7 @@ Mở `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) h
         "--from",
         "git+https://github.com/timgiup/timgiup-mcp-server",
         "timgiup-mcp"
-      ],
-      "env": {
-        "TIMGIUP_API_BASE_URL": "https://timgiup.com"
-      }
+      ]
     }
   }
 }

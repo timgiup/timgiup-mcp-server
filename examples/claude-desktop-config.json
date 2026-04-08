@@ -6,10 +6,7 @@
         "--from",
         "git+https://github.com/timgiup/timgiup-mcp-server",
         "timgiup-mcp"
-      ],
-      "env": {
-        "TIMGIUP_API_BASE_URL": "https://timgiup.com"
-      }
+      ]
     }
   }
 }

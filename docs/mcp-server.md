@@ -41,12 +41,6 @@ pip install git+https://github.com/timgiup/timgiup-mcp-server.git
 timgiup-mcp
 ```
 
-## Biến môi trường
-
-| Biến | Mặc định | Mô tả |
-|------|----------|-------|
-| `TIMGIUP_API_BASE_URL` | `https://timgiup.com` | URL gốc API. Đổi nếu chạy môi trường staging/local. |
-
 ## Tích hợp Claude Desktop
 
 File config: `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) hoặc `%APPDATA%\Claude\claude_desktop_config.json` (Windows).
@@ -60,10 +54,7 @@ File config: `~/Library/Application Support/Claude/claude_desktop_config.json` (
         "--from",
         "git+https://github.com/timgiup/timgiup-mcp-server",
         "timgiup-mcp"
-      ],
-      "env": {
-        "TIMGIUP_API_BASE_URL": "https://timgiup.com"
-      }
+      ]
     }
   }
 }
@@ -109,7 +100,7 @@ npx @modelcontextprotocol/inspector timgiup-mcp
 | Lỗi | Nguyên nhân | Giải pháp |
 |-----|-------------|-----------|
 | `ModuleNotFoundError: mcp` | MCP SDK chưa cài | `pip install mcp>=1.0.0` |
-| `httpx.ConnectError` | Không kết nối được API | Kiểm tra `TIMGIUP_API_BASE_URL` và mạng |
+| `httpx.ConnectError` | Không kết nối được API | Kiểm tra kết nối mạng tới `https://timgiup.com` |
 | `429 Too Many Requests` | Vượt rate limit (30/min) | Đợi 1 phút rồi thử lại |
 | Tool không xuất hiện trong Claude | Sai config path | Kiểm tra file config + restart Claude Desktop |
 

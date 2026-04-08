@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-import os
 from pathlib import Path
 from typing import Any
 
@@ -15,10 +14,10 @@ from mcp.types import TextContent, Tool
 from .client import TimgiupClient
 
 DATA_DIR = Path(__file__).parent / "data"
+TIMGIUP_BASE_URL = "https://timgiup.com"
 
 # Khởi tạo server + client
-_base_url = os.environ.get("TIMGIUP_API_BASE_URL", "https://timgiup.com")
-_client = TimgiupClient(base_url=_base_url)
+_client = TimgiupClient(base_url=TIMGIUP_BASE_URL)
 server: Server = Server("timgiup-mcp")
 
 
