@@ -9,7 +9,7 @@
 ## Tính năng
 
 - 🔎 **Tìm kiếm bài đăng** theo từ khóa (tiếng Việt có dấu), lọc theo danh mục và tỉnh/thành
-- 📚 **Reference data** đầy đủ: 6 danh mục cha + 53 danh mục con, 34 tỉnh/thành Việt Nam (sau sáp nhập 2025)
+- 📚 **Reference data**: 6 danh mục cha + 34 tỉnh/thành Việt Nam (sau sáp nhập 2025)
 - 🤖 **3 MCP tools** sẵn sàng cho AI Agent: `search_lost_items`, `list_categories`, `list_provinces`
 - 🌐 Trả về tối đa 20 kết quả mỗi lần với đầy đủ: title, mô tả, danh mục, địa chỉ, ngày xảy ra, ảnh, và link bài viết gốc
 

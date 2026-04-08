@@ -72,9 +72,9 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="list_categories",
             description=(
-                "Lấy danh sách 6 danh mục cha + danh mục con (subcategory) "
-                "trên timgiup.com. Dùng để chọn slug cho tham số 'category' "
-                "khi gọi search_lost_items."
+                "Lấy danh sách 6 danh mục cha trên timgiup.com. "
+                "API search chỉ hỗ trợ lọc theo danh mục cha. "
+                "Dùng để chọn slug cho tham số 'category' khi gọi search_lost_items."
             ),
             inputSchema={"type": "object", "properties": {}},
         ),
