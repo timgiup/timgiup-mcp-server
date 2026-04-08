@@ -1,6 +1,6 @@
-# Lost Item Search API Vietnam — MCP Server
+# timgiup-mcp-server
 
-> Công cụ MCP (Model Context Protocol) cho phép AI Agent (Claude Desktop, Cline, Cursor, …) tìm kiếm **giấy tờ thất lạc**, **đồ thất lạc**, **thú cưng thất lạc**, **người thân thất lạc** và **đồ nhặt được** tại Việt Nam thông qua nền tảng [timgiup.com](https://timgiup.com).
+> Công cụ MCP (Model Context Protocol) cho phép AI Agent (Claude Desktop, Claude Code, Cline, Cursor, …) tìm kiếm **giấy tờ thất lạc**, **đồ thất lạc**, **thú cưng thất lạc**, **người thân thất lạc** và **đồ nhặt được** tại Việt Nam thông qua nền tảng [timgiup.com](https://timgiup.com).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -8,35 +8,43 @@
 
 ## Tính năng
 
-- 🔎 **Tìm kiếm bài đăng** theo từ khóa (tiếng Việt có dấu), lọc theo danh mục và tỉnh/thành
-- 📚 **Reference data**: 6 danh mục cha + 34 tỉnh/thành Việt Nam (sau sáp nhập 2025)
-- 🤖 **3 MCP tools** sẵn sàng cho AI Agent: `search_lost_items`, `list_categories`, `list_provinces`
-- 🌐 Trả về tối đa 20 kết quả mỗi lần với đầy đủ: title, mô tả, danh mục, địa chỉ, ngày xảy ra, ảnh, và link bài viết gốc
+- **Tìm kiếm bài đăng** theo từ khóa (tiếng Việt có/không dấu), lọc theo danh mục và tỉnh/thành
+- **Reference data**: 6 danh mục cha + 34 tỉnh/thành Việt Nam (sau sáp nhập 2025) kèm aliases tên cũ
+- **3 MCP tools** sẵn sàng cho AI Agent: `search_lost_items`, `list_categories`, `list_provinces`
+- Trả về tối đa 20 kết quả mỗi lần với đầy đủ: title, status, mô tả, danh mục, địa chỉ, ngày xảy ra, ảnh, link bài viết gốc
 
-## Cài đặt nhanh
+## Yêu cầu
 
-### Cách 1: dùng `uvx` (khuyến nghị)
+- Python ≥ 3.10
+- [`uv`](https://github.com/astral-sh/uv) (cung cấp `uvx`)
+
+Cài `uv`:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+## Chạy thử
+
 ```bash
 uvx --from git+https://github.com/timgiup/timgiup-mcp-server timgiup-mcp
 ```
 
-### Cách 2: clone & cài local
+(Server sẽ chờ JSON-RPC qua stdin — đây là behavior đúng. `Ctrl+C` để thoát.)
+
+## Cấu hình Claude Code (CLI)
+
 ```bash
-git clone https://github.com/timgiup/timgiup-mcp-server.git
-cd timgiup-mcp-server
-pip install -e .
-timgiup-mcp
+claude mcp add timgiup "$(which uvx)" -- --from git+https://github.com/timgiup/timgiup-mcp-server timgiup-mcp
 ```
 
-## Cấu hình Claude Desktop
-
-Mở `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) hoặc `%APPDATA%\Claude\claude_desktop_config.json` (Windows), thêm:
+Hoặc thêm thủ công vào `~/.claude.json`:
 
 ```json
 {
   "mcpServers": {
     "timgiup": {
-      "command": "uvx",
+      "type": "stdio",
+      "command": "/home/<user>/.local/bin/uvx",
       "args": [
         "--from",
         "git+https://github.com/timgiup/timgiup-mcp-server",
@@ -47,34 +55,58 @@ Mở `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) h
 }
 ```
 
-Khởi động lại Claude Desktop. Tool sẽ xuất hiện trong danh sách MCP tools.
+**Lưu ý:** Claude Code không load PATH của user shell → phải dùng **absolute path** cho `command`. Tìm bằng `which uvx`.
 
-Xem thêm: [`examples/claude-desktop-config.json`](examples/claude-desktop-config.json)
+Restart Claude Code → kiểm tra bằng `/mcp` → `timgiup` phải `connected`.
 
-## Ví dụ sử dụng (prompt cho AI Agent)
+## Cấu hình Claude Desktop
+
+Mở file config:
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+- Linux: `~/.config/Claude/claude_desktop_config.json`
+
+Thêm:
+
+```json
+{
+  "mcpServers": {
+    "timgiup": {
+      "command": "/home/<user>/.local/bin/uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/timgiup/timgiup-mcp-server",
+        "timgiup-mcp"
+      ]
+    }
+  }
+}
+```
+
+Khởi động lại Claude Desktop.
+
+## Tích hợp các AI Agent khác
+
+Xem [`examples/README.md`](examples/README.md) cho Cursor, Cline, Continue, Windsurf, Zed, Gemini CLI, OpenCode, Antigravity.
+
+## Ví dụ prompt cho AI Agent
 
 - "Tìm tin báo mất CCCD ở TP HCM gần đây nhất"
 - "Có ai nhặt được ví da đen ở quận Hoàn Kiếm Hà Nội không?"
 - "Tìm bài đăng tìm chó poodle thất lạc"
 - "Liệt kê các danh mục bài đăng trên timgiup.com"
-- "Tìm điện thoại iPhone bị mất ở Đà Nẵng"
+- "Tìm điện thoại iPhone bị mất ở Đà Nẵng, kèm link bài viết"
 
 ## API & Reference
 
-- 📖 [`docs/api.md`](docs/api.md) — Tài liệu chi tiết REST API `/api/search`
-- 📖 [`docs/mcp-server.md`](docs/mcp-server.md) — Hướng dẫn cài đặt và tích hợp MCP server
-- 📋 [`docs/categories.md`](docs/categories.md) — Danh sách 6 danh mục cha + subcategory
-- 📋 [`docs/provinces.md`](docs/provinces.md) — Danh sách 34 tỉnh/thành Việt Nam
-
-## Yêu cầu
-
-- Python ≥ 3.10
-- `mcp` ≥ 1.0.0
-- `httpx` ≥ 0.27.0
+- [`docs/api.md`](docs/api.md) — Tài liệu chi tiết REST API `/api/search`
+- [`docs/mcp-server.md`](docs/mcp-server.md) — Hướng dẫn cài đặt MCP server đầy đủ
+- [`docs/categories.md`](docs/categories.md) — 6 danh mục cha
+- [`docs/provinces.md`](docs/provinces.md) — 34 tỉnh/thành Việt Nam + aliases tên cũ
 
 ## Đóng góp
 
-PRs welcome! Nếu phát hiện bug hoặc muốn đề xuất tính năng, vui lòng mở [issue](https://github.com/timgiup/timgiup-mcp-server/issues).
+PRs welcome. Bug/feature request: mở [issue](https://github.com/timgiup/timgiup-mcp-server/issues).
 
 ## License
 
